@@ -2,15 +2,14 @@
 
 module vending_machine(
             input coin1,coin2,
-                   input rst,clk,
-                   input item,
-  input [1:0] tea_loaded, coffee_loaded,
-          output reg change, deliver_tea, deliver_coffee,
-  output reg [1:0] tea_available, coffee_available);
- 
-  reg [2:0] state, next_state;
-  
-  parameter Idle = 3'd0,
+            input rst,clk,
+            input item,
+            input [1:0] tea_loaded, coffee_loaded,
+            output reg change, deliver_tea, deliver_coffee,
+            output reg [1:0] tea_available, coffee_available
+);
+            reg [2:0] state, next_state;
+            parameter Idle = 3'd0,
             Idle_tea = 3'd1,
             Idle_coffee = 3'd2,
             tea_st1 = 3'd3, 
