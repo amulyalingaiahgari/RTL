@@ -3,7 +3,8 @@ module ALU_8bit (
   input  [7:0] B,           // Second operand
   input  [3:0] ALU_Sel,     // Operation selector
   output reg [7:0] ALU_Out, // Result
-  output Zero ,Carryout     // Zero flag
+  output Zero,              // Zero flag
+  output reg Carryout       // Carry
 );
 
     always @(*) begin
