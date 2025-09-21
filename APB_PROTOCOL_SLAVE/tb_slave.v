@@ -92,8 +92,8 @@ module tb_apb_protocol;
   end
   // Monitor signal activity
   initial begin
-    $monitor("T=%0t | pwrite=%b | padr=%h | pwdata=%h | prdata=%h | psel=%b | penable=%b | pready=%b | pslverr=%b",
-             $time, pwrite, padr, pwdata, prdata, psel, penable, pready, pslverr);
+    $monitor("T=%0t | pwrite=%b | paddr=%h | pwdata=%h | prdata=%h | psel=%b | penable=%b | pready=%b | pslverr=%b",
+             $time, pwrite, paddr, pwdata, prdata, psel, penable, pready, pslverr);
   end
 
 endmodule
