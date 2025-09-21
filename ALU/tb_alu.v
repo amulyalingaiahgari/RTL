@@ -20,7 +20,7 @@ module tb_ALU_8bit;
 
     // Test sequence
     initial begin
-        $display("Time\tA\tB\tSel\tCarry\tOut\tZero");
+        $display("Time\tA\tB\tALU_Sel\tCarry\tALU_Out\tZero");
         $monitor("%0dns\t%h\t%h\t%b\t%b\t%h\t%b", $time, A, B, ALU_Sel, Carryout, ALU_Out, Zero);
 
         A = 8'h0A; B = 8'h05;
