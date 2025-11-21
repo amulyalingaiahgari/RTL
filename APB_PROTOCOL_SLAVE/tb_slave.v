@@ -1,4 +1,4 @@
-module tb_apb_protocol;
+module tb_apb_slave;
   // Testbench signal declarations
   reg         presetn;
   reg         pclk;
@@ -12,18 +12,7 @@ module tb_apb_protocol;
   wire        pslverr;
 
   // DUT instantiation
-  apb_protocol dut (
-    .presetn (presetn),
-    .pclk    (pclk),
-    .psel    (psel),
-    .penable (penable),
-    .pwrite  (pwrite),
-    .paddr   (paddr),
-    .pwdata  (pwdata),
-    .prdata  (prdata),
-    .pready  (pready),
-    .pslverr (pslverr)
-  );
+  apb_slave dut(.presetn(presetn), .pclk(pclk), .psel(psel), .penable(penable), .pwrite(pwrite), .paddr(paddr), .pwdata(pwdata), .prdata(prdata), .pready(pready), .pslverr(pslverr));
 
   // Clock generation (100MHz)
   initial begin
@@ -45,12 +34,12 @@ module tb_apb_protocol;
 
     // Write Transaction
     #10 psel = 1;
-         penable = 0;
-         pwrite  = 1;
-         paddr    = 32'h5;
-         pwdata  = 32'h9;
+        penable = 0;
+        pwrite  = 1;
+        paddr   = 32'h5;
+        pwdata  = 32'h9;
 
-    #10 penable = 1;
+    #10 penable = 1; //enable phase
 
     #10 psel = 0;
          penable = 0;
@@ -67,8 +56,9 @@ module tb_apb_protocol;
          penable = 0;
 
 
-//write to out-of-range address//invalid write transcation to addr 33
+//write to out-of-range address//invalid write transcation to addr 58
     #10 psel=1;
+        penable=0;
         pwrite=1;
         paddr=58; //invalid
         pwdata=6;
@@ -81,6 +71,7 @@ module tb_apb_protocol;
 
 //invalid read transaction from address 33
     #10 psel=1;
+        penable=0;
         pwrite=0;
         paddr=58; //invalid
 
@@ -88,12 +79,13 @@ module tb_apb_protocol;
 
     #10 psel=0;
         penable=0;
-    #50 sfinish;
+    
+    #50 $finish;
   end
+  
   // Monitor signal activity
   initial begin
-    $monitor("T=%0t | pwrite=%b | paddr=%h | pwdata=%h | prdata=%h | psel=%b | penable=%b | pready=%b | pslverr=%b",
-             $time, pwrite, paddr, pwdata, prdata, psel, penable, pready, pslverr);
+    $monitor("T=%0t | pwrite=%b | paddr=%h | pwdata=%h | prdata=%h | psel=%b | penable=%b | pready=%b | pslverr=%b", $time, pwrite, paddr, pwdata, prdata, psel, penable, pready, pslverr);
   end
 
 endmodule
