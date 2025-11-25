@@ -3,7 +3,7 @@ reg clk;
 reg rst;
 reg wr_en;
 reg [7:0]data_in;
-reg rd en;
+reg rd_en;
 wire [7:0]data_out;
 wire empty;
 wire full;
