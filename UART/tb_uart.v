@@ -1,4 +1,4 @@
-module uart_opt_tb;
+module uart_tb;
 
   // Clock + Reset
   logic clk;
@@ -19,7 +19,7 @@ module uart_opt_tb;
   initial clk = 0;
   always #10 clk = ~clk;   // 20ns → 50MHz
 
-  // Instantiate Optimized Transmitter
+  // Instantiate Transmitter
   Uart_Transmitter tx_inst (
     .clk(clk),
     .reset(reset),
@@ -29,7 +29,7 @@ module uart_opt_tb;
     .busy(tx_busy)
   );
 
-  // Instantiate Optimized Receiver
+  // Instantiate Receiver
   Uart_Receiver rx_inst (
     .clk(clk),
     .reset(reset),
